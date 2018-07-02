@@ -24,7 +24,6 @@ Player.prototype.moveUp = function () {
         console.log(this.playerPos)
         return this.playerPos.y += 2;
     }
-    console.log(this.playerPos);
 
 }
 
@@ -110,31 +109,31 @@ function Map(maze) {
     this.chronometer.startTime();
 }
 
-Map.prototype.limitPlayerOne = function (x, y) {
-    if (theMaze[map.playerOne.playerPos.x + 1][map.playerOne.playerPos.y] === 0) {
-        //to be continued
-    } else if (x < 0) {
-        map.playerOne.x = 0;
-    }
-    if (y > this.limit[0]) {
-        map.playerOne.y = 800;
-    } else if (y < 0) {
-        map.playerOne.y = 0;
-    }
-}
+// Map.prototype.limitPlayerOne = function (x, y) {
+//     if (theMaze[map.playerOne.playerPos.x + 1][map.playerOne.playerPos.y] === 0) {
+//         //to be continued
+//     } else if (x < 0) {
+//         map.playerOne.x = 0;
+//     }
+//     if (y > this.limit[0]) {
+//         map.playerOne.y = 800;
+//     } else if (y < 0) {
+//         map.playerOne.y = 0;
+//     }
+// }
 
-Map.prototype.limitPlayerTwo = function (x, y) {
-    if (x > this.limit[0]) {
-        map.playerTwo.x = 400;
-    } else if (x < 0) {
-        map.playerTwo.x = 0;
-    }
-    if (y > this.limit[0]) {
-        map.playerTwo.y = 800;
-    } else if (y < 0) {
-        map.playerTwo.y = 0;
-    }
-}
+// Map.prototype.limitPlayerTwo = function (x, y) {
+//     if (x > this.limit[0]) {
+//         map.playerTwo.x = 400;
+//     } else if (x < 0) {
+//         map.playerTwo.x = 0;
+//     }
+//     if (y > this.limit[0]) {
+//         map.playerTwo.y = 800;
+//     } else if (y < 0) {
+//         map.playerTwo.y = 0;
+//     }
+// }
 
 
 function Enemies(x, y) {
