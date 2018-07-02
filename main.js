@@ -10,27 +10,53 @@
 function Player(x, y) {
     this.x = x;
     this.y = y;
-
+    this.playerPos = {
+        x: this.x,
+        y: this.y
+    }
 }
 
 Player.prototype.moveUp = function () {
-    console.log(this.y);
-    return this.y += 2;
+    if (theMaze[map.playerOne.playerPos.x][map.playerOne.playerPos.y + 2] === 0) {
+        console.log(this.playerPos)
+        return this.playerPos.y += 0
+    } else {
+        console.log(this.playerPos)
+        return this.playerPos.y += 2;
+    }
+    console.log(this.playerPos);
+
 }
 
 Player.prototype.moveDown = function () {
-    console.log(this.y);
-    return this.y -= 2;
+    if (theMaze[map.playerOne.playerPos.x][map.playerOne.playerPos.y - 2] === 0) {
+        console.log(this.playerPos)
+        return this.playerPos.y += 0;
+    } else {
+        console.log(this.playerPos)
+        return this.playerPos.y -= 2;
+    }
 }
 
 Player.prototype.moveLeft = function () {
-    console.log(this.x);
-    return this.x -= 2;
+    if (theMaze[map.playerOne.playerPos.x - 2][map.playerOne.playerPos.y] === 0) {
+        console.log(this.playerPos)
+        return this.playerPos.x += 0;
+    } else {
+        console.log(this.playerPos)
+        return this.playerPos.x -= 2;
+    }
 }
 
 Player.prototype.moveRight = function () {
-    console.log(this.x);
-    return this.x += 2;
+    if (theMaze[map.playerOne.playerPos.x + 2][map.playerOne.playerPos.y] === 0){
+        console.log(this.playerPos)
+        return this.playerPos.x += 0;
+    } else {
+        console.log(this.playerPos);
+        return this.playerPos.x += 2;
+
+    }
 }
 
 
@@ -72,25 +98,27 @@ Chronometer.prototype.setTime = function () {
 Chronometer.prototype.endGame = function () {
     if (this.currentTime === 0) {
         clearInterval(this.intervalId);
+        popup();
     }
 }
 
-function Map() {
-    this.limit = [400, 800];
-    this.playerOne = new Player(0,40);
-    this.playerTwo = new Player(0, 80);
+function Map(maze) {
+    this.limit = maze;
+    this.playerOne = new Player(3, 10);
+    this.playerTwo = new Player(3, 13);
     this.chronometer = new Chronometer();
     this.chronometer.startTime();
 }
 
 Map.prototype.limitPlayerOne = function (x, y) {
-    if (x > this.limit[0]) {
-        map.playerOne.x = 400;
-    } if (x < 0) {
+    if (theMaze[map.playerOne.playerPos.x + 1][map.playerOne.playerPos.y] === 0) {
+        //to be continued
+    } else if (x < 0) {
         map.playerOne.x = 0;
-    } if (y > this.limit[0]){
+    }
+    if (y > this.limit[0]) {
         map.playerOne.y = 800;
-    } if (y < 0) {
+    } else if (y < 0) {
         map.playerOne.y = 0;
     }
 }
@@ -98,34 +126,63 @@ Map.prototype.limitPlayerOne = function (x, y) {
 Map.prototype.limitPlayerTwo = function (x, y) {
     if (x > this.limit[0]) {
         map.playerTwo.x = 400;
-    } if (x < 0) {
+    } else if (x < 0) {
         map.playerTwo.x = 0;
-    } if (y > this.limit[0]){
+    }
+    if (y > this.limit[0]) {
         map.playerTwo.y = 800;
-    } if (y < 0) {
+    } else if (y < 0) {
         map.playerTwo.y = 0;
     }
+}
+
+
+function Enemies(x, y) {
+    this.x = x;
+    this.y = y;
+    this.speedX += 1.5;
+    this.speedY += 1.5;
 }
 
 window.onload = function () {
     document.getElementById('start-button').onclick = function () {
         start();
+        setInterval(printMinutes, 1000)
+        setInterval(printSeconds, 1000)
     }
     function start() {
 
-        this.map = new Map()
+        this.map = new Map(theMaze)
 
         document.onkeydown = function (e) {
             switch (e.keyCode) {
-                case 38: map.playerOne.moveUp(); map.limitPlayerOne(map.playerOne.x, map.playerOne.y); break;
-                case 40: map.playerOne.moveDown(); map.limitPlayerOne( map.playerOne.x, map.playerOne.y); break;
-                case 37: map.playerOne.moveLeft(); map.limitPlayerOne(map.playerOne.x, map.playerOne.y);  break;
-                case 39: map.playerOne.moveRight(); map.limitPlayerOne(map.playerOne.x, map.playerOne.y);  break;
-                case 90: map.playerTwo.moveUp(); map.limitPlayerOne(playerTwo.x, playerTwo.y); break;
-                case 83: map.playerTwo.moveDown(); map.limitPlayerOne(playerTwo.x, playerTwo.y); break;
-                case 81: map.playerTwo.moveLeft(); map.limitPlayerOne(map.playerTwo.x, map.playerTwo.y); break;
-                case 68: map.playerTwo.moveRight(); map.limitPlayerOne(map.playerTwo.x, map.playerTwo.y); break;
+                case 38: map.playerOne.moveUp(); break;
+                case 40: map.playerOne.moveDown(); break;
+                case 37: map.playerOne.moveLeft(); break;
+                case 39: map.playerOne.moveRight(); break;
+                case 90: map.playerTwo.moveUp(); break;
+                case 83: map.playerTwo.moveDown(); break;
+                case 81: map.playerTwo.moveLeft(); break;
+                case 68: map.playerTwo.moveRight(); break;
             }
         }
     }
 }
+
+var theMaze = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0],
+    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
+    [0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+    [0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0, 0, 0, 3, 3, 3, 1, 0, 0, 1, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
