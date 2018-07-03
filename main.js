@@ -10,50 +10,46 @@
 function Player(x, y) {
     this.x = x;
     this.y = y;
-    this.playerPos = {
-        x: this.x,
-        y: this.y
-    }
 }
 
 Player.prototype.moveUp = function () {
-    if (theMaze[map.playerOne.playerPos.x][map.playerOne.playerPos.y + 2] === 0) {
-        console.log(this.playerPos)
-        return this.playerPos.y += 0
+    if (theMaze[map.playerOne.x][map.playerOne.y + 2] === 0) {
+        console.log(map.playerOne, true)
+        return map.playerOne.y += 0
     } else {
-        console.log(this.playerPos)
-        return this.playerPos.y += 2;
+        console.log(map.playerOne)
+        return map.playerOne.y += 2;
     }
 
 }
 
 Player.prototype.moveDown = function () {
-    if (theMaze[map.playerOne.playerPos.x][map.playerOne.playerPos.y - 2] === 0) {
-        console.log(this.playerPos)
-        return this.playerPos.y += 0;
+    if (theMaze[map.playerOne.x][map.playerOne.y - 2] === 0) {
+        console.log(map.playerOne, true)
+        return map.playerOne.y += 0;
     } else {
-        console.log(this.playerPos)
-        return this.playerPos.y -= 2;
+        console.log(map.playerOne)
+        return map.playerOne.y -= 2;
     }
 }
 
 Player.prototype.moveLeft = function () {
-    if (theMaze[map.playerOne.playerPos.x - 2][map.playerOne.playerPos.y] === 0) {
-        console.log(this.playerPos)
-        return this.playerPos.x += 0;
+    if (theMaze[map.playerOne.x - 2][map.playerOne.y] === 0) {
+        console.log(map.playerOne, true)
+        return map.playerOne.x += 0;
     } else {
-        console.log(this.playerPos)
-        return this.playerPos.x -= 2;
+        console.log(map.playerOne)
+        return map.playerOne.x -= 2;
     }
 }
 
 Player.prototype.moveRight = function () {
-    if (theMaze[map.playerOne.playerPos.x + 2][map.playerOne.playerPos.y] === 0){
-        console.log(this.playerPos)
-        return this.playerPos.x += 0;
+    if (theMaze[map.playerOne.x + 2][map.playerOne.y] === 0) {
+        console.log(map.playerOne, true)
+        return map.playerOne.x += 0;
     } else {
-        console.log(this.playerPos);
-        return this.playerPos.x += 2;
+        console.log(map.playerOne);
+        return map.playerOne.x += 2;
 
     }
 }
@@ -69,8 +65,11 @@ Chronometer.prototype.startTime = function () {
     this.intervalId = setInterval(() => {
         this.currentTime -= 1;
         this.setTime();
+        map.firstEnemies.moving()
         this.endGame();
     }, 1000);
+
+    
 }
 
 Chronometer.prototype.minutes = function () {
@@ -97,7 +96,6 @@ Chronometer.prototype.setTime = function () {
 Chronometer.prototype.endGame = function () {
     if (this.currentTime === 0) {
         clearInterval(this.intervalId);
-        popup();
     }
 }
 
@@ -107,41 +105,39 @@ function Map(maze) {
     this.playerTwo = new Player(3, 13);
     this.chronometer = new Chronometer();
     this.chronometer.startTime();
+    this.firstEnemies = new Enemies(8, 8)
 }
-
-// Map.prototype.limitPlayerOne = function (x, y) {
-//     if (theMaze[map.playerOne.playerPos.x + 1][map.playerOne.playerPos.y] === 0) {
-//         //to be continued
-//     } else if (x < 0) {
-//         map.playerOne.x = 0;
-//     }
-//     if (y > this.limit[0]) {
-//         map.playerOne.y = 800;
-//     } else if (y < 0) {
-//         map.playerOne.y = 0;
-//     }
-// }
-
-// Map.prototype.limitPlayerTwo = function (x, y) {
-//     if (x > this.limit[0]) {
-//         map.playerTwo.x = 400;
-//     } else if (x < 0) {
-//         map.playerTwo.x = 0;
-//     }
-//     if (y > this.limit[0]) {
-//         map.playerTwo.y = 800;
-//     } else if (y < 0) {
-//         map.playerTwo.y = 0;
-//     }
-// }
-
 
 function Enemies(x, y) {
     this.x = x;
     this.y = y;
-    this.speedX += 1.5;
-    this.speedY += 1.5;
+    this.direction = Math.floor((Math.random() * 3) + 1)
+
 }
+
+Enemies.prototype.moving = function () {
+    switch (this.direction) {
+        case 1:
+            theMaze[this.x + 1][this.y] === 0 ? this.direction = Math.floor((Math.random() * 3) + 1) : map.firstEnemies.x += 1;
+            console.log(map.firstEnemies)
+            break;
+        case 2:
+
+                theMaze[this.x - 1][this.y] === 0 ? this.direction = Math.floor((Math.random() * 3) + 1) : map.firstEnemies.x -= 1;
+                console.log(map.firstEnemies)
+       
+            break;
+        case 3:
+                theMaze[this.x][this.y + 1] === 0 ? this.direction = Math.floor((Math.random() * 3) + 1) : map.firstEnemies.y += 1;
+                console.log(map.firstEnemies)
+            break;
+        case 4:
+                theMaze[this.x][this.y - 1] === 0 ? this.direction = Math.floor((Math.random() * 3) + 1) : map.firstEnemies.y -= 1;
+                console.log(map.firstEnemies)
+            break;
+    }
+}
+
 
 window.onload = function () {
     document.getElementById('start-button').onclick = function () {
