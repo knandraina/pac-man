@@ -10,10 +10,23 @@
     <title>Pac-Man</title>
 </head>
 
-<body>
+<body style="overflow: hidden;">
     <button id="start-button">Start the Game</button>
     <div id="sphere">
-        <span id="minDec" class="number">0</span><span id="minUni" class="number">0</span><span>:</span><span id="secDec" class="number">0</span><span id="secUni" class="number">0</span>
+        <span id="minDec" class="number">0</span>
+        <span id="minUni" class="number">0</span>
+        <span>:</span>
+        <span id="secDec" class="number">0</span>
+        <span id="secUni" class="number">0</span>
+    </div>
+    <div id="counter-player-1">
+       <p>Point Player One :</p> <span id="point-player-1" class="number">0</span>
+    </div>
+    <div id="counter-player-2">
+        <p>Point Player Two :</p><span id="point-player-2" class="number">0</span>
+    </div>
+    <div id="game-board">
+        <canvas id="canvas" width="1000" height="600"></canvas>
+      </div>
 </body>
-
 </html>
