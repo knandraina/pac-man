@@ -114,6 +114,9 @@ Player.prototype.superPower = function () {
     if (this.active === true && map.playerOne.x === map.playerTwo.x && map.playerTwo.y === map.playerOne.y) {
         this.winner = true;
         clearInterval(this.intervalId)
+        suppression ()
+        clear()
+        noMove()
         swal(
             `${this.name} won`,
             'success'
@@ -169,12 +172,16 @@ Chronometer.prototype.setTime = function () {
 
 Chronometer.prototype.endGame = function () {
     if (this.currentTime === 0) {
+        suppression ()
+        noMove()
         clearInterval(this.intervalId);
         win()
     }
     map.listEnemies.forEach((element, index) => {
         if (map.listEnemies[index].eating === true) {
-            clearInterval(this.intervalId);
+             clearInterval(this.intervalId);
+             suppression ()
+             noMove()
         }
     })
 }
@@ -290,6 +297,8 @@ Enemies.prototype.collision = function () {
         map.playerTwo.winner = true;
         this.eating = true;
         suppression()
+        clear()
+        noMove()
         swal(
             'Player Two won',
             'Player One is the looser !',
@@ -299,7 +308,9 @@ Enemies.prototype.collision = function () {
         this.eating = true;
         map.playerTwo.isDead = true;
         map.playerOne.winner = true;
-        suppression()
+        suppression ()
+        clear()
+        noMove()
         swal(
             'Player One Won',
             'Player Two is the looser !',
