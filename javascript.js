@@ -45,3 +45,13 @@ function winner () {
 function suppression () {
     map.listEnemies.splice(0)
 }
+function clear () {
+    clearInterval(map.chronometer.intervalId)
+}
+
+function noMove() {
+    map.playerOne.speedX = 0;
+    map.playerTwo.speedY = 0;
+    map.playerOne.speedY = 0;
+    map.playerTwo.speedX = 0;
+}
