@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="main.js"></script>
     <script src="javascript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.25.0/dist/sweetalert2.all.min.js"></script>
     <title>Pac-Man</title>
 </head>
 
@@ -20,13 +21,27 @@
         <span id="secUni" class="number">0</span>
     </div>
     <div id="counter-player-1">
-       <p>Point Player One :</p> <span id="point-player-1" class="number">0</span>
+        <p>Point Player One :</p>
+        <span id="pointplayerone" class="number">0</span>
     </div>
-    <div id="counter-player-2">
-        <p>Point Player Two :</p><span id="point-player-2" class="number">0</span>
-    </div>
+    <div id="counter-player-2"></div>
+    <p>Point Player Two :</p>
+    <span id="pointplayertwo" class="number">0</span>
     <div id="game-board">
         <canvas id="canvas" width="1000" height="600"></canvas>
-      </div>
+    </div>
+
+    <style>
+        #game-board {
+            margin-left: 30%;
+            margin-top: -5%;
+        }
+
+        #inline-block {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
 </body>
+
 </html>

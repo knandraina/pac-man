@@ -7,89 +7,142 @@
 // q : 81
 // d : 68
 
-function Player(x, y) {
+function Player(x, y, name) {
+    this.name = name;
     this.x = x;
     this.y = y;
     this.winner = false;
     this.speedX = 1;
     this.speedY = 1;
     this.isDead = false;
+    this.count = 0;
+    this.active = false;
 }
+
+
 
 Player.prototype.moveUp = function () {
-    if (theMaze[this.x][this.y + 1] === 0 || map.firstEnemies.eating === true || map.secondEnemies.eating === true || map.thirdEnemies.eating === true || map.fourthEnemies.eating === true) {
-        console.log(map.playerOne, map.playerTwo, true)
-        return this.y += 0
-    } else {
-        console.log(map.playerOne, map.playerTwo)
-        this.y += this.speedY; this.superPower()
+    map.listEnemies.forEach((element, index) => {
+        console.log(map.listEnemies[index].eating)
+        if (map.listEnemies[index].eating === true) {
+            return this.y += 0;
+        } else if (theMaze[this.x][this.y + 1] === 0) {
+            return this.y += 0;
+
+        }
+    })
+    if (theMaze[this.x][this.y + 1] !== 0) {
+        this.y += this.speedY; this.superPower(); console.log(map.playerOne)
+        map.listEnemies[0] != undefined ? map.listEnemies[0].collision() : console.log('ok')
+        map.listEnemies[1] != undefined ? map.listEnemies[1].collision() : console.log('ok')
+        map.listEnemies[2] != undefined ? map.listEnemies[2].collision() : console.log('ok')
+        map.listEnemies[3] != undefined ? map.listEnemies[3].collision() : console.log('ok')
     }
 }
+
+
 
 Player.prototype.moveDown = function () {
-    if (theMaze[this.x][this.y - 1] === 0 || map.firstEnemies.eating === true || map.secondEnemies.eating === true || map.thirdEnemies.eating === true || map.fourthEnemies.eating === true) {
-        console.log(map.playerOne, map.playerTwo, true)
-        return this.y += 0;
-    } else {
-        console.log(map.playerOne, map.playerTwo)
-        this.y -= this.speedY; this.superPower();
+    map.listEnemies.forEach((element, index) => {
+        console.log(map.listEnemies[index].eating)
+        if (map.listEnemies[index].eating === true) {
+            return this.y += 0;
+        } else if (theMaze[this.x][this.y - 1] === 0) {
+            return this.y += 0;
+        } else {
+
+        }
+    })
+    if (theMaze[this.x][this.y - 1] !== 0) {
+        this.y -= this.speedY; this.superPower(); console.log(map.playerOne)
+        map.listEnemies[0] != undefined ? map.listEnemies[0].collision() : console.log('ok')
+        map.listEnemies[1] != undefined ? map.listEnemies[1].collision() : console.log('ok')
+        map.listEnemies[2] != undefined ? map.listEnemies[2].collision() : console.log('ok')
+        map.listEnemies[3] != undefined ? map.listEnemies[3].collision() : console.log('ok')
     }
 }
 
+
 Player.prototype.moveLeft = function () {
-    if (theMaze[this.x - 1][this.y] === 0 || map.firstEnemies.eating === true || map.secondEnemies.eating === true || map.thirdEnemies.eating === true || map.fourthEnemies.eating === true) {
-        console.log(map.playerOne, map.playerTwo, true)
-        return this.x += 0;
-    } else {
-        console.log(map.playerOne, map.playerTwo)
-        this.x -= this.speedX; this.superPower()
+    map.listEnemies.forEach((element, index) => {
+        console.log(map.listEnemies[index].eating)
+        if (map.listEnemies[index].eating === true) {
+            return this.x += 0;
+        } else if (theMaze[this.x - 1][this.y] === 0) {
+            return this.x += 0;
+        }
+    })
+    if (theMaze[this.x - 1][this.y] !== 0) {
+        this.x -= this.speedY; this.superPower(); console.log(map.playerOne)
+        map.listEnemies[0] != undefined ? map.listEnemies[0].collision() : console.log('ok')
+        map.listEnemies[1] != undefined ? map.listEnemies[1].collision() : console.log('ok')
+        map.listEnemies[2] != undefined ? map.listEnemies[2].collision() : console.log('ok')
+        map.listEnemies[3] != undefined ? map.listEnemies[3].collision() : console.log('ok')
     }
 }
 
 Player.prototype.moveRight = function () {
-    if (theMaze[this.x + 1][this.y] === 0 || map.firstEnemies.eating === true || map.secondEnemies.eating === true || map.thirdEnemies.eating === true || map.fourthEnemies.eating === true) {
-        console.log(map.playerOne, map.playerTwo, true)
-        return this.x += 0;
-    } else {
-        console.log(map.playerOne, map.playerTwo)
-        this.x += this.speedX; this.superPower()
+    map.listEnemies.forEach((element, index) => {
+        console.log(map.listEnemies[index].eating)
+        if (map.listEnemies[index].eating === true) {
+            return this.x += 0;
+        } else if (theMaze[this.x - 1][this.y] === 0) {
+            return this.x += 0;
+        }
+    })
+    if (theMaze[this.x + 1][this.y] !== 0) {
+        return this.x += this.speedY; this.superPower(); console.log(map.playerOne)
+        map.listEnemies[0] != undefined ? map.listEnemies[0].collision() : console.log('ok')
+        map.listEnemies[1] != undefined ? map.listEnemies[1].collision() : console.log('ok')
+        map.listEnemies[2] != undefined ? map.listEnemies[2].collision() : console.log('ok')
+        map.listEnemies[3] != undefined ? map.listEnemies[3].collision() : console.log('ok')
     }
 }
 
+// à faire 
 Player.prototype.superPower = function () {
     if (theMaze[this.x][this.y] === 5) {
-        theMaze[this.x][this.y] = 1;
+        console.log(map.listEnemies)
+        theMaze[this.x][this.y] = 2;
+        this.active = true;
         setTimeout(() => {
-            this.speedX = 1;
-            this.speedY = 1;
+            this.active = false;
 
         }, 10000);
-        if (map.playerOne.x === map.playerTwo.x && map.playerTwo.y === map.playerTwo.y) {
-            this.winner = true;
-        }
+
     }
+    if (this.active === true && map.playerOne.x === map.playerTwo.x && map.playerTwo.y === map.playerOne.y) {
+        this.winner = true;
+        clearInterval(this.intervalId)
+        swal(
+            `${this.name} won`,
+            'success'
+        )
+    }
+    map.listEnemies.forEach((element, index) => {
+        if (element.x === this.x && element.y === this.y && this.active === true) {
+            map.listEnemies.splice(index, 1); console.log(map.listEnemies)
+            this.count += 10;
+        }
+    })
 }
 
+
 function Chronometer() {
-    this.currentTime = 300;
-    this.minute = "05";
-    this.second = "00";
+    this.currentTime = 90;
+    this.minute = "01";
+    this.second = "30";
 }
 
 Chronometer.prototype.startTime = function () {
     this.intervalId = setInterval(() => {
         this.currentTime -= 1;
         this.setTime();
-        map.firstEnemies.moving()
-        map.secondEnemies.moving()
-        map.thirdEnemies.moving()
-        map.fourthEnemies.moving()
-        this.endGame();
+        map.listEnemies[0] != undefined ? map.listEnemies[0].moving() : console.log('ok')
+        map.listEnemies[1] != undefined ? map.listEnemies[1].moving() : console.log('ok')
+        map.listEnemies[2] != undefined ? map.listEnemies[2].moving() : console.log('ok')
+        map.listEnemies[3] != undefined ? map.listEnemies[3].moving() : console.log('ok')
         map.drawing();
-        map.firstEnemies.collision();
-        map.secondEnemies.collision();
-        map.thirdEnemies.collision();
-        map.fourthEnemies.collision();
     }, 1000);
 }
 
@@ -117,58 +170,63 @@ Chronometer.prototype.setTime = function () {
 Chronometer.prototype.endGame = function () {
     if (this.currentTime === 0) {
         clearInterval(this.intervalId);
-    } else if (this.winner === true) {
-        clearInterval(this.intervalId);
-    } else if (map.firstEnemies.eating === true || map.secondEnemies.eating === true || map.thirdEnemies.eating === true || map.fourthEnemies.eating === true) {
-        clearInterval(this.intervalId);
+        win()
     }
+    map.listEnemies.forEach((element, index) => {
+        if (map.listEnemies[index].eating === true) {
+            clearInterval(this.intervalId);
+        }
+    })
 }
 
 function Map(maze) {
     this.ctx = document.getElementById('canvas').getContext('2d');
     this.limit = maze;
-    this.playerOne = new Player(2, 1);
-    this.playerTwo = new Player(13, 13);
+    this.playerOne = new Player(2, 1, "Player One");
+    this.playerTwo = new Player(13, 13, "Player Two");
     this.chronometer = new Chronometer();
     this.chronometer.startTime();
-    this.firstEnemies = new Enemies(10, 14)
-    this.secondEnemies = new Enemies(9, 8)
-    this.thirdEnemies = new Enemies(13, 2)
-    this.fourthEnemies = new Enemies(4, 6)
+    this.listEnemies = [new Enemies(10, 14, this.ctx), new Enemies(9, 8, this.ctx), new Enemies(13, 2, this.ctx), new Enemies(4, 6, this.ctx)]
 }
 
 Map.prototype.update = function () {
     this.drawing();
+    if (theMaze[map.playerOne.x][map.playerOne.y] === 1) {
+        theMaze[map.playerOne.x][map.playerOne.y] = 2;
+        map.playerOne.count += 1;
+        countPlayerOne()
+    } else if (theMaze[map.playerTwo.x][map.playerTwo.y] === 1) {
+        theMaze[map.playerTwo.x][map.playerTwo.y] = 2;
+        map.playerTwo.count += 1;
+        countPlayerTwo()
+    }
+
 }
 
 Map.prototype.drawing = function () {
+    this.ctx.clearRect(0, 0, 1000, 1000);
+    for (var i = 0; i < theMaze.length; i++) {
+        for (var j = 0; j < theMaze[i].length; j++) {
+            if (theMaze[i][j] === 0) {
+                this.ctx.fillStyle = "black";
+                this.ctx.fillRect(j * 30 - 10, i * 30 + 60, 30, 30);
+            } else if (theMaze[i][j] === 1 || theMaze[i][j] === 2) {
+                this.ctx.fillStyle = "red";
+                this.ctx.fillRect(j * 30 - 10, i * 30 + 60, 30, 30);
+            } else if (theMaze[i][j] === 3) {
+                this.ctx.fillStyle = "chartreuse";
+                this.ctx.fillRect(j * 30 - 10, i * 30 + 60, 30, 30);
+            } else if (theMaze[i][j] === 5) {
+                this.ctx.fillStyle = "red";
+                this.ctx.fillRect(j * 30 - 10, i * 30 + 60, 30, 30);
+            }
+        }
+    }
+
     this.firstPlayer = new Image()
     this.firstPlayer.src = './images/pacman.png';
     this.firstPlayer.onload = () => {
         this.ctx.drawImage(this.firstPlayer, map.playerOne.y * 30 - 10, map.playerOne.x * 30 + 60, 20, 20)
-    }
-
-    this.firstEnemy = new Image();
-    this.firstEnemy.src = './images/Stickeroid.png'
-    this.firstEnemy.onload = () => {
-        this.ctx.drawImage(this.firstEnemy, map.firstEnemies.y * 30 - 10, map.firstEnemies.x * 30 + 60, 20, 20);
-    }
-    this.secondEnemy = new Image();
-    this.secondEnemy.src = './images/Stickeroid.png'
-    this.secondEnemy.onload = () => {
-        this.ctx.drawImage(this.secondEnemy, map.secondEnemies.y * 30 - 10, map.secondEnemies.x * 30 + 60, 20, 20);
-    }
-
-    this.thirdEnemy = new Image();
-    this.thirdEnemy.src = './images/Stickeroid.png'
-    this.thirdEnemy.onload = () => {
-        this.ctx.drawImage(this.thirdEnemy, map.thirdEnemies.y * 30 - 10, map.thirdEnemies.x * 30 + 60, 20, 20);
-    }
-
-    this.fourthEnemy = new Image();
-    this.fourthEnemy.src = './images/Stickeroid.png'
-    this.fourthEnemy.onload = () => {
-        this.ctx.drawImage(this.fourthEnemy, map.fourthEnemies.y * 30 - 10, map.fourthEnemies.x * 30 + 60, 20, 20);
     }
 
     this.ball = new Image()
@@ -185,70 +243,68 @@ Map.prototype.drawing = function () {
         }
     }
 
-    var secondPLayer = new Image();
-    secondPLayer.src = './images/pacman-green.png';
-    secondPLayer.onload = () => {
-        this.ctx.drawImage(secondPLayer, map.playerTwo.y * 30 - 10, map.playerTwo.x * 30 + 60, 20, 20)
+    this.secondPLayer = new Image();
+    this.secondPLayer.src = './images/pacman-green.png'
+    this.secondPLayer.onload = () => {
+        this.ctx.drawImage(this.secondPLayer, map.playerTwo.y * 30 - 10, map.playerTwo.x * 30 + 60, 20, 20)
     }
-
-    this.ctx.clearRect(0, 0, 1000, 1000);
-    for (var i = 0; i < theMaze.length; i++) {
-        for (var j = 0; j < theMaze[i].length; j++) {
-            if (theMaze[i][j] === 0) {
-                this.ctx.fillStyle = "black";
-                this.ctx.fillRect(j * 30 - 10, i * 30 + 60, 30, 30);
-            } else if (theMaze[i][j] === 1) {
-                this.ctx.fillStyle = "red";
-                this.ctx.fillRect(j * 30 - 10, i * 30 + 60, 30, 30);
-            } else if (theMaze[i][j] === 3) {
-                this.ctx.fillStyle = "chartreuse";
-                this.ctx.fillRect(j * 30 - 10, i * 30 + 60, 30, 30);
-            } else if (theMaze[i][j] === 5) {
-                this.ctx.fillStyle = "red";
-                this.ctx.fillRect(j * 30 - 10, i * 30 + 60, 30, 30);
-            }
-        }
-    }
+    map.listEnemies.forEach(element => {
+        element.draw()
+    });
 }
 
-function Enemies(x, y) {
+function Enemies(x, y, ctx) {
     this.x = x;
     this.y = y;
     this.direction = Math.floor((Math.random() * 3) + 1)
     this.eating = false;
+    this.ctx = ctx;
+    this.image = new Image();
+    this.image.src = './images/Stickeroid.png';
+
+}
+Enemies.prototype.draw = function () {
+    this.ctx.drawImage(this.image, this.y * 30 - 10, this.x * 30 + 60, 20, 20);
 }
 
 Enemies.prototype.moving = function () {
     switch (this.direction) {
         case 1:
             theMaze[this.x + 1][this.y] === 0 ? this.direction = Math.floor((Math.random() * 3) + 1) : this.x += 1;
-            console.log(map.firstEnemies, map.secondEnemies, map.thirdEnemies, map.fourthEnemies)
             break;
         case 2:
             theMaze[this.x - 1][this.y] === 0 ? this.direction = Math.floor((Math.random() * 3) + 1) : this.x -= 1;
-            console.log(map.firstEnemies, map.secondEnemies, map.thirdEnemies, map.fourthEnemies)
             break;
         case 3:
             theMaze[this.x][this.y + 1] === 0 ? this.direction = Math.floor((Math.random() * 3) + 1) : this.y += 1;
-            console.log(map.firstEnemies, map.secondEnemies, map.thirdEnemies, map.fourthEnemies)
             break;
         case 4:
             theMaze[this.x][this.y - 1] === 0 ? this.direction = Math.floor((Math.random() * 3) + 1) : this.y -= 1;
-            console.log(map.firstEnemies, map.secondEnemies, map.thirdEnemies, map.fourthEnemies)
             break;
     }
 }
 
 Enemies.prototype.collision = function () {
-    console.log(this.x, this.y)
-    if ((this.x === map.playerOne.x && this.y === map.playerOne.y)) {
+    if ((this.x === map.playerOne.x && this.y === map.playerOne.y && map.playerOne.active === false)) {
         map.playerOne.isDead = true;
         map.playerTwo.winner = true;
         this.eating = true;
-    } else if ((this.x === map.playerTwo.x && this.y === map.playerTwo.y)){
+        suppression()
+        swal(
+            'Player Two won',
+            'Player One is the looser !',
+            'success'
+        )
+    } else if ((this.x === map.playerTwo.x && this.y === map.playerTwo.y && map.playerTwo.active === false)) {
         this.eating = true;
         map.playerTwo.isDead = true;
         map.playerOne.winner = true;
+        suppression()
+        swal(
+            'Player One Won',
+            'Player Two is the looser !',
+            'success'
+        )
     }
 }
 
@@ -262,6 +318,13 @@ window.onload = function () {
     function start() {
         this.map = new Map(theMaze)
         map.drawing()
+
+        swal(
+            'Player One : Use the arrows to move, You\'re the yellow player',
+            'Player Two : Use Z - Q - S - D to move. You\'re the green player!',
+            '',
+        );
+
         document.onkeydown = function (e) {
             switch (e.keyCode) {
                 case 38: map.playerOne.moveLeft(); map.update(); break;
@@ -278,20 +341,20 @@ window.onload = function () {
 }
 
 var theMaze = [
-    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 5, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0],
     [0, 1, 1, 1, 0, 0, 1, 5, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
     [0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 5, 0],
     [0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     [0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0],
-    [0, 0, 1, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 1, 0, 1, 0],
-    [0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0, 0, 0, 3, 1, 1, 1, 0, 0, 1, 0, 1, 0],
+    [0, 0, 5, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0],
     [0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
     [0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
     [0, 0, 1, 1, 1, 1, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
